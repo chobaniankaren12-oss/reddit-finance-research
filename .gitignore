@@ -15,3 +15,8 @@ data/raw/
 logs/
 
 .ipynb_checkpoints/
+
+# Implementation files are kept local until the project is ready to publish.
+# Re-add explicitly with `git add -f <name>.py` when ready.
+*.py
+

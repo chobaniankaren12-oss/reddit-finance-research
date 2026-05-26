@@ -93,7 +93,7 @@ reddit-finance-research/
 ## Stage status
 
 - [x] **Stage 1** — config, storage, collector, CLI (`setup`, `collect`)
-- [ ] Stage 2 — Claude classifier + demography regex
+- [x] **Stage 2** — Claude classifier + demography regex (`classify`)
 - [ ] Stage 3 — embeddings + HDBSCAN clustering
 - [ ] Stage 4 — analyzer (CLI reports)
 - [ ] Stage 5 — related-subreddit discovery
@@ -123,7 +123,19 @@ python cli.py setup
 ```bash
 python cli.py collect --sub personalfinance     # one subreddit, sanity check
 python cli.py collect --seeds                   # full sweep across all seeds
+python cli.py classify --limit 50               # tag a small sample first
+python cli.py classify                          # tag everything unclassified
 ```
+
+### Classifier notes
+
+- Posts that don't match any keyword in `PAIN_KEYWORDS`/`GOAL_KEYWORDS`/`GAP_KEYWORDS`
+  (see `config.py`) are marked `pain=goal='none'` without a Claude call (cheap pass).
+- Posts that match at least one keyword are sent to Claude in batches of `--batch-size`
+  (default 20). System prompt is cache-flagged → subsequent batches are cheaper.
+- Demographics (age/gender/income/country) are extracted via regex for every post and
+  written to the `demographics` table; `life_stage` comes from the LLM.
+- Re-running is idempotent: `posts.classified_at` gates which rows the next run touches.
 
 ## Database
 
