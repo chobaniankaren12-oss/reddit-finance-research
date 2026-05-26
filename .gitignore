@@ -1,0 +1,17 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+data/reddit.db
+data/reddit.db-journal
+data/raw/
+*.log
+logs/
+
+.ipynb_checkpoints/
