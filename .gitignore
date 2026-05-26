@@ -1,22 +1,28 @@
+# Secrets / local config — NEVER commit
 .env
+.env.local
+*.key
+*.pem
+
+# Python tooling
 .venv/
 venv/
+env/
 __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
 .mypy_cache/
-.DS_Store
+.ipynb_checkpoints/
 
-data/reddit.db
-data/reddit.db-journal
-data/raw/
+# Collected data and generated artefacts (local to each install)
+data/
+reports/
 *.log
 logs/
 
-.ipynb_checkpoints/
-
-# Implementation files are kept local until the project is ready to publish.
-# Re-add explicitly with `git add -f <name>.py` when ready.
-*.py
-
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp
